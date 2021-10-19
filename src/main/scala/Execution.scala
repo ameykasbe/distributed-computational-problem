@@ -17,6 +17,7 @@ object Execution{
 
   def main(args: Array[String]): Unit = {
     val configuration = new Configuration
+    configuration.set("mapred.textoutputformat.separator", ",")
     val distributionJob = Job.getInstance(configuration,"Distribution message types")
     distributionJob.setJarByClass(this.getClass)
     // Mapper config
