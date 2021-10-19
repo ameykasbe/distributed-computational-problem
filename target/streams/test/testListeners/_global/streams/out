@@ -1,1 +1,1 @@
-[0m[[0m[33mwarn[0m] [0m[0mGetting the hostname Ameys-MacBook-Air.local was slow (5012.105084 ms). This is likely because the computer's hostname is not set. You can set the hostname with the command: scutil --set HostName "$(scutil --get LocalHostName).local".[0m
+[0m[[0m[33mwarn[0m] [0m[0mGetting the hostname Ameys-MacBook-Air.local was slow (5006.660791 ms). This is likely because the computer's hostname is not set. You can set the hostname with the command: scutil --set HostName "$(scutil --get LocalHostName).local".[0m
