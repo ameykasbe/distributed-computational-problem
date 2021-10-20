@@ -43,14 +43,32 @@ object Execution{
       distributionJob.setJarByClass(this.getClass)
       // Mapper config
       distributionJob.setMapperClass(classOf[DistributionMapperNoTime])
-      distributionJob.setCombinerClass(classOf[DistributionReducerNoTime])
       // Reducer config
+      distributionJob.setCombinerClass(classOf[DistributionReducerNoTime])
       distributionJob.setReducerClass(classOf[DistributionReducerNoTime])
       distributionJob.setOutputKeyClass(classOf[Text])
       distributionJob.setOutputKeyClass(classOf[Text]);
       distributionJob.setOutputValueClass(classOf[IntWritable]);
       FileInputFormat.addInputPath(distributionJob, new Path(args(1)))
       val outputPath = config.getString("OutputLocation.MainLocation") + config.getString("OutputLocation.DistributionMessageTypeNoTime")
+      FileOutputFormat.setOutputPath(distributionJob, new Path(outputPath))
+      println("Starting MapReduce job...")
+      System.exit(if(distributionJob.waitForCompletion(true))  0 else 1)
+    }
+
+    if (args(0) == "4") {
+      val distributionJob = Job.getInstance(configuration,"Maximum number of characters per message type")
+      distributionJob.setJarByClass(this.getClass)
+      // Mapper config
+      distributionJob.setMapperClass(classOf[MaxCharacterMapper])
+      // Reducer config
+      distributionJob.setCombinerClass(classOf[MaxCharacterReducer])
+      distributionJob.setReducerClass(classOf[MaxCharacterReducer])
+      distributionJob.setOutputKeyClass(classOf[Text])
+      distributionJob.setOutputKeyClass(classOf[Text]);
+      distributionJob.setOutputValueClass(classOf[IntWritable]);
+      FileInputFormat.addInputPath(distributionJob, new Path(args(1)))
+      val outputPath = config.getString("OutputLocation.MainLocation") + config.getString("OutputLocation.MaxCharacter")
       FileOutputFormat.setOutputPath(distributionJob, new Path(outputPath))
       println("Starting MapReduce job...")
       System.exit(if(distributionJob.waitForCompletion(true))  0 else 1)
