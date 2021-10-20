@@ -38,7 +38,7 @@ class MaxCharacterReducer extends Reducer[Text,IntWritable,Text,IntWritable] {
 //    context.write(key, new IntWritable(maximum))
 
     // Calculate maximum of all the elements of the iterable.
-    var maximum = values.asScala.foldLeft(0)(_ max _.get)
+    val maximum = values.asScala.foldLeft(0)(_ max _.get)
 
     // Write output in context variable
     context.write(key, new IntWritable(maximum))  // Key = MESSAGE TYPE, VALUE = maximum of all the elements of iterable

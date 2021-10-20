@@ -18,7 +18,7 @@ class DistributionReducerNoTime extends Reducer[Text,IntWritable,Text,IntWritabl
    */
   override def reduce(key: Text, values: Iterable[IntWritable], context: Reducer[Text, IntWritable, Text, IntWritable]#Context): Unit = {
     // Calculate sum of all the elements of the iterable.
-    var sum = values.asScala.foldLeft(0)(_ + _.get)
+    val sum = values.asScala.foldLeft(0)(_ + _.get)
     // Write in context variable
     context.write(key, new IntWritable(sum)) // Key = MESSAGE TYPE, VALUE = sum of all the elements of iterable
     logger.info(s"Reducer Output: ${key},${sum}")
