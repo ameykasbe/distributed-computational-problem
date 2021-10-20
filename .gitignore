@@ -14,7 +14,7 @@ project/plugins/project/*
 .bsp
 practice.scala
 practice2.scala
-
+.DS_Store
 
 ### ApacheHadoop ###
 *.iml
