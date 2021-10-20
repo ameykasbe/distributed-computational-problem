@@ -10,4 +10,5 @@ class DistributionReducer extends Reducer[Text,IntWritable,Text,IntWritable] {
     var sum = values.asScala.foldLeft(0)(_ + _.get)
     context.write(key, new IntWritable(sum))
   }
+
 }

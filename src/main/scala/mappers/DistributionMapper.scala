@@ -28,24 +28,32 @@ class DistributionMapper extends Mapper[Object, Text, Text, IntWritable] {
 
     while (itr.hasMoreTokens()) {
       val str = itr.nextToken() // Single log event
-      val pattern = timeRegex.r // scala.util.matching.Regex instance with time pattern
-      val option_string_match = pattern.findFirstIn(str) // Finds first occurence of pattern and returns Option[String]
+      val timePattern = timeRegex.r // scala.util.matching.Regex instance with time pattern
+      val option_string_match = timePattern.findFirstIn(str) // Finds first occurence of time pattern and returns Option[String]
       option_string_match match {
         case Some(s) => {
           val t = LocalTime.parse(s) // Time of the log event
-          if ((t >= initial_time) && (t <= final_time)) // Comparing time{
-            val pattern2 = messageTypeRegex.r // scala.util.matching.Regex instance with message type pattern
-            val match_message_type = pattern2.findFirstIn(str) // Finding message type
-            match_message_type match {
-              case Some(sm) => {
-                word.set(sm) // Converting from Option[String] to Hadoop Text instance
-                context.write(word, one) // Key = MESSAGE TYPE, VALUE = 1
+          if ((t >= initial_time) && (t <= final_time)){ // Comparing time
+            val pattern = patternRegex.r
+            val customPattern = pattern.findFirstIn(str)
+            customPattern match{
+              case Some(sp) => {
+                val messageType = messageTypeRegex.r // scala.util.matching.Regex instance with message type pattern
+                val matchMessageType = messageType.findFirstIn(str) // Finding message type
+                matchMessageType match {
+                  case Some(sm) => {
+                    word.set(sm) // Converting from Option[String] to Hadoop Text instance
+                    context.write(word, one) // Key = MESSAGE TYPE, VALUE = 1
+                  }
+                  case None => // If log message type pattern is not found - Do nothing
+                }
               }
-              case None => // If pattern is not found - Do nothing
+              case None => // If pattern not found - Do nothing
             }
           }
-        case None => // If pattern is not found - Do nothing
         }
+        case None => // If time pattern is not found - Do nothing
       }
     }
   }
+}
