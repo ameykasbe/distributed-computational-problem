@@ -1,6 +1,19 @@
 # Created by https://www.toptal.com/developers/gitignore/api/apachehadoop
 # Edit at https://www.toptal.com/developers/gitignore?templates=apachehadoop
 
+dist/*
+target/*
+target/*
+lib_managed/*
+src_managed/*
+project/boot/*
+project/plugins/project/*
+.history
+.cache
+.lib/*
+.bsp
+
+
 ### ApacheHadoop ###
 *.iml
 *.ipr
@@ -122,15 +135,5 @@ hs_err_pid*
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
-.history
-.cache
-.lib/
-.bsp
 
 # End of https://www.toptal.com/developers/gitignore/api/apachehadoop

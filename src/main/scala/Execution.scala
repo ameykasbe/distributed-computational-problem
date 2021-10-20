@@ -32,7 +32,7 @@ object Execution{
       distributionJob.setOutputKeyClass(classOf[Text]);
       distributionJob.setOutputValueClass(classOf[IntWritable]);
       FileInputFormat.addInputPath(distributionJob, new Path(args(1)))
-      val outputPath = config.getString("OutputLocation.MainLocation") + config.getString("OutputLocation.DistributionMessageType")
+      val outputPath = args(2) + config.getString("OutputLocation.DistributionMessageType")
       FileOutputFormat.setOutputPath(distributionJob, new Path(outputPath))
       println("Starting MapReduce job...")
       System.exit(if(distributionJob.waitForCompletion(true))  0 else 1)
@@ -50,7 +50,7 @@ object Execution{
       distributionJob.setOutputKeyClass(classOf[Text]);
       distributionJob.setOutputValueClass(classOf[IntWritable]);
       FileInputFormat.addInputPath(distributionJob, new Path(args(1)))
-      val outputPath = config.getString("OutputLocation.MainLocation") + config.getString("OutputLocation.DistributionMessageTypeNoTime")
+      val outputPath = args(2) + config.getString("OutputLocation.DistributionMessageTypeNoTime")
       FileOutputFormat.setOutputPath(distributionJob, new Path(outputPath))
       println("Starting MapReduce job...")
       System.exit(if(distributionJob.waitForCompletion(true))  0 else 1)
@@ -68,7 +68,7 @@ object Execution{
       distributionJob.setOutputKeyClass(classOf[Text]);
       distributionJob.setOutputValueClass(classOf[IntWritable]);
       FileInputFormat.addInputPath(distributionJob, new Path(args(1)))
-      val outputPath = config.getString("OutputLocation.MainLocation") + config.getString("OutputLocation.MaxCharacter")
+      val outputPath = args(2) + config.getString("OutputLocation.MaxCharacter")
       FileOutputFormat.setOutputPath(distributionJob, new Path(outputPath))
       println("Starting MapReduce job...")
       System.exit(if(distributionJob.waitForCompletion(true))  0 else 1)
