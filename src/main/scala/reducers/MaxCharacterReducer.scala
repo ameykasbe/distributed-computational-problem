@@ -27,6 +27,6 @@ class MaxCharacterReducer extends Reducer[Text,IntWritable,Text,IntWritable] {
 //    context.write(key, new IntWritable(maximum))
 
     var maximum = values.asScala.foldLeft(0)(_ max _.get)
-    context.write(key, new IntWritable(maximum)
+    context.write(key, new IntWritable(maximum))
   }
 }
