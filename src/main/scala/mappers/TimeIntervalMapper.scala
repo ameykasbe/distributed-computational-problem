@@ -22,6 +22,13 @@ class TimeIntervalMapper extends Mapper[Object, Text, Text, IntWritable] {
   val patternRegex = config.getString("DistributionMessageType.patternRegex")
   val timeInterval = config.getInt("DistributionMessageType.timeInterval")
 
+  // Defining first intervals
+  // WHY VARIABLES ARE USED INSTEAD OF CONSTANT VALUES
+  // In order to manipulate the initTime and endTime such that they can be changed according to the log events's time. So, we need both to be mutable. These variables are limited to the scope of the map method.
+  var initTime = LocalTime(00,00,00,000)
+  var endTime = LocalTime(23,59,59,000)
+
+
   /**
    * A mapper method for the MapReduce Job 2. Takes a key value pair of logs as input where the String log content is value. Returns messageType: Text (Time Slot) as key and IntWritable(1) as value.
    */
@@ -36,11 +43,6 @@ class TimeIntervalMapper extends Mapper[Object, Text, Text, IntWritable] {
     // Create tokenizer that tokenizes log events delimiter "\n". Elements are in String datatype.
     val itr = new StringTokenizer(value.toString, "\n")
 
-    // Defining first intervals as None
-    // WHY VARIABLES ARE USED INSTEAD OF CONSTANT VALUES
-    // In order to manipulate the initTime and endTime such that they can be changed according to the log events's time. So, we need both to be mutable. These variables are limited to the scope of the map method.
-    var initTime = LocalTime(00,00,00,000)
-    var endTime = LocalTime(23,59,59,000)
 
     while (itr.hasMoreTokens()) {
       val str = itr.nextToken() // Single log event
