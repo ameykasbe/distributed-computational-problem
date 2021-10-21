@@ -37,6 +37,9 @@ Create a file in comma separated format with number of characters in each log me
 * Reducer is a computing node that takes the output from mapper (maybe after some extra processing like shuffling) and combines the data (reduces) into smaller set of tuples. 
 * It accepts a key-value pair such that value is a multiset i.e. {key: {value1, value2 ...}} and outputs a key-value pair such that the key is same as the input and the value is either a single value or a multiset of values i.e. {key: {value1, value2 ...}}
 
+Since, each log entry is independent from the other one in that it can be processed without synchronizing with processing some other entries, we can use MapReduce model to analyze log entries.
+
+
 ## Technologies used
 ### [Apache Hadoop](http://hadoop.apache.org/)
 * A framework for distributed processing of large data sets across multiple computers (or even on a single node) using the map/reduce model. [5]
@@ -94,6 +97,13 @@ Contains a mapper class and a reducer class respectively for the MapReduce Job 4
 * Clone this repository.
 * Open terminal, navigate to the root directory and create the jar file using command -  <br />
   `sbt clean compile assembly`
+
+### Use appropriate configurations
+* Check `applications.conf` for all the configurations. These configurations are extremely important to get correct outputs.
+* For Job1, specify the predefined time duration between which the logs are needed to be analyzed. 
+* For Job2, specify the time interval
+
+
 
 ### Local Environment Execution
 #### Setup Hadoop Environment
