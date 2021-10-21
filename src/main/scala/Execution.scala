@@ -60,6 +60,34 @@ object Execution{
       System.exit(if(mapReduceJob.waitForCompletion(true))  0 else 1)
     }
 
+    if (args(0) == "2") {
+      logger.info("Starting execution of Job 2: Compute time intervals sorted in the descending order that contained most log messages of the type ERROR with injected regex pattern string instances.")
+
+      // Creating a MapReduce job
+      val mapReduceJob = Job.getInstance(configuration,"Compute time intervals sorted in the descending order that contained most log messages of the type ERROR with injected regex pattern string instances.")
+      mapReduceJob.setJarByClass(this.getClass)
+
+      // Mapper config
+      mapReduceJob.setMapperClass(classOf[TimeIntervalMapper])
+
+      // Reducer config
+      mapReduceJob.setCombinerClass(classOf[TimeIntervalReducer])
+      mapReduceJob.setReducerClass(classOf[TimeIntervalReducer])
+
+      // Output config
+      mapReduceJob.setOutputKeyClass(classOf[Text])
+      mapReduceJob.setOutputKeyClass(classOf[Text]);
+      mapReduceJob.setOutputValueClass(classOf[IntWritable]);
+
+      // Input-Output Path config
+      FileInputFormat.addInputPath(mapReduceJob, new Path(args(1)))
+      val outputPath = args(2) + config.getString("OutputLocation.TimeInterval")
+      FileOutputFormat.setOutputPath(mapReduceJob, new Path(outputPath))
+
+      // Exit system if job completed
+      System.exit(if(mapReduceJob.waitForCompletion(true))  0 else 1)
+    }
+
     if (args(0) == "3") {
       logger.info("Starting execution of Job 3: Distribution of message types in logs with messages of a particular pattern.")
 
