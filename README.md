@@ -160,7 +160,60 @@ Contains a mapper class and a reducer class respectively for the MapReduce Job 4
     `Execution 3 s3://cs441-hw2-bucket/data/input s3://cs441-hw2-bucket/data/output`
   * Job 4 <br />
     `Execution 4 s3://cs441-hw2-bucket/data/input s3://cs441-hw2-bucket/data/output`
-  
+
+## Results
+### Job 1
+Create a file in comma separated format with distribution of message types in logs with messages of a particular pattern across predefined time interval.
+
+
+![](etc/Job1.png)
+
+* For the log file present in the input directory, the output is as shown in the screenshot.
+* The first column represents log message types.
+* The second column represents the number of times log events have appeared in the logs for that particular message type with given pattern and between the time duration defined in configuration.
+* The logic behind this MapReduce job is that if we can find the log events in mappers which fall under the time gap mentioned in the configuration file, which also contains the pattern, we can send the multiset of Message Type as Key and 1 as value from the mapper to reducer.
+* Then, in reducers, where after shuffling we get Message type as key and multiset of 1, which are the number of instances of such log events of such message type, we can take the sum of all the 1s and get the sum of message types.
+
+
+
+
+### Job 2
+Time intervals sorted in the descending order that contained most log messages of the type ERROR with injected regex pattern string instances.
+
+![](etc/Job2.png)
+
+* For the log file job2test.log present in the input directory, the output is as shown in the screenshot.
+* * The first column represents time intervals from intialTime to EndTime.
+* The second column represents the number of times log events have appeared in the logs for ERROR message type with given pattern and between the time interval.
+* The logic behind this is the output from mapper should be a multiset of key value pair where key is the interval and value is 1, which represents the one time the ERROR message type has occurred in the time interval.
+* The reducer receives input in key value pair such that key is the time interval and value is multiset of 1s. Computing the sum of elements of value will result in the total number of ERROR messages in the time interval in the log.
+
+
+
+### Job 3
+Create a file in comma separated format with distribution of message types in logs with messages of a particular pattern.
+
+![](etc/Job3.png)
+
+* For the log file present in the input directory, the output is as shown in the screenshot.
+* The first column represents log message types.
+* The second column represents the number of times log events have appeared in the logs for that particular message type with given pattern defined in configuration.
+* The logic behind this MapReduce job is that if we can find the log events in mappers which also the pattern defined in the configuration, we can send the multiset of Message Type as Key and 1 as value from the mapper to reducer.
+* Then, in reducers, where after shuffling we get Message type as key and multiset of 1, which are the number of instances of such log events of such message type, we can take the sum of all the 1s and get the sum of message types.
+
+
+
+### Job 4
+Create a file in comma separated format with number of characters in each log message for each log message type that contain the highest number of characters in the detected instances of the designated regex pattern.
+
+![](etc/Job4.png)
+
+* For the log file present in the input directory, the output is as shown in the screenshot.
+* The first column represents log message types.
+* The second column represents the maximum number of character of message in the log event, for that particular message type with given pattern  defined in configuration.
+* The logic behind this MapReduce job is that if we can find the log events in mappers which contains the pattern, we can send the multiset of Message Type as Key and string length of the message as value from the mapper to reducer.
+* Then, in reducers, where after shuffling we get Message type as key and multiset of string length of messages, we can take the maximum of all the string lengths and get the sum of message types.
+
 ## Unit testing procedure
 ### Using IntelliJ Idea
 1. Clone this repository
