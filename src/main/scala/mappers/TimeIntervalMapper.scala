@@ -37,6 +37,8 @@ class TimeIntervalMapper extends Mapper[Object, Text, Text, IntWritable] {
     val itr = new StringTokenizer(value.toString, "\n")
 
     // Defining first intervals as None
+    // WHY VARIABLES ARE USED INSTEAD OF CONSTANT VALUES
+    // In order to manipulate the initTime and endTime such that they can be changed according to the log events's time. So, we need both to be mutable. These variables are limited to the scope of the map method.
     var initTime = LocalTime(00,00,00,000)
     var endTime = LocalTime(23,59,59,000)
 
