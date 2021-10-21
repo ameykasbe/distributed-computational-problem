@@ -165,6 +165,11 @@ Contains a mapper class and a reducer class respectively for the MapReduce Job 4
   * Job 4 <br />
     `Execution 4 s3://cs441-hw2-bucket/data/input s3://cs441-hw2-bucket/data/output`
 
+## YouTube Link
+* YouTube link of the short video that documents all steps of the deployment and execution -
+  [YouTube Link](https://youtu.be/DLTfhaKWtB4)
+
+
 ## Results
 ### Job 1
 Create a file in comma separated format with distribution of message types in logs with messages of a particular pattern across predefined time interval.
